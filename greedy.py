@@ -17,6 +17,7 @@ for i in change:
     count += (N // i)
     N = N % i
 print(count)
+
     
 
 
