@@ -1,23 +1,25 @@
+import heapq
+
 #N명 중 세명을 골랐을 때
 #영어점수 최솟값과 수학점수 최솟값의 합의 최대치를 반환
 
 #영어점수, 수학점수
 score = [[56, 71], [80, 57], [91, 27], [14,67], [99, 67]]
 
-from itertools import combinations
+eng = []
+math = []
 
-def solution(score):
-    tmp_sum = 0
+for e, m in score:
+  heapq.heappush(eng, e)
+  heapq.heappush(math, m)
 
-    for scores in combinations(score, 3):
-        min_eng = min([eng[0] for eng in scores])
-        min_math = min([math[1] for math in scores])
+min_eng = heapq.nsmallest(3, eng)
+min_math = heapq.nsmallest(3, math)
 
-        score_sum = min_eng + min_math
-        max_sum = max(tmp_sum, score_sum)
-    
-    print(max_sum)
-    return max_sum
+tmp_score = 0
+for eng_score in min_eng:
+  for math_score in min_math:
+    sum_score = eng_score + math_score
+    max_score = max(tmp_score, sum_score)
 
-solution(score)
-
+print(max_score)
